@@ -34,6 +34,14 @@ code {
   border-radius: 5px !important;
 }
 
+
+.bigimg {
+  width: 300px;
+  height: 250px;
+  border-radius: 5px !important;
+}
+
+
 .btn {
   background-color: black !important;
   color: white !important;
@@ -41,12 +49,26 @@ code {
 }
 
 .bs {
-  box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px,
-    rgb(31, 193, 27) 0px 0px 0px 6px,
-    rgb(255, 217, 19) 0px 0px 0px 9px,
-    rgb(255, 156, 85) 0px 0px 0px 12px,
-    rgb(255, 85, 85) 0px 0px 0px 15px;
+
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
   margin-top: 20px !important;
   border-radius: 5px !important;
   padding: 20px !important;
 }
+
+
+
+input{
+  box-shadow: none !important;
+  margin-top: 10px;
+  border : 1px solid black !important;
+}
+
+h2{
+  font-size: 30px !important;
+  padding: 5px;
+  font-weight: bold !important;
+  text-align: center !important;
+}
+
