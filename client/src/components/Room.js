@@ -1,4 +1,5 @@
 // Room.js
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,6 +9,7 @@ function Room({ room,fromDate,toDate}) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 <Room room={room} fromDate={room.fromDate} toDate={room.toDate} />
+
     if (!room || !room.imageurl || !Array.isArray(room.imageurl) || room.imageurl.length === 0) {
         return <div>Error: Room data is incomplete</div>;
     }
@@ -24,6 +26,7 @@ function Room({ room,fromDate,toDate}) {
                 <div>
                     <h1>{room.name}</h1>
                 </div>
+
                 <div>
                     <p>Liczba gości: {room.maxcount}</p>
                 </div>
@@ -45,6 +48,7 @@ function Room({ room,fromDate,toDate}) {
                         <button className='btn btn-primary m-2'>Book Now</button>
                     </Link>
                     <button className='btn btn-primary' onClick={handleShow}>View Details</button>
+
                 </div>
             </div>
         </div>

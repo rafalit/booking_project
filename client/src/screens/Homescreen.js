@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Room from '../components/Room';
@@ -9,10 +10,12 @@ import { set } from 'mongoose';
 import 'antd/dist/reset.css';
 const { RangePicker } = DatePicker;
 
+
 function Homescreen() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
 
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
@@ -34,8 +37,10 @@ function Homescreen() {
       }
     };
 
+
     fetchData();
   }, []);
+
 
   function filterByDate(dates) {
  
@@ -60,6 +65,7 @@ function Homescreen() {
             {rooms.map((room) => (
               <div key={room._id} className="col-md-9">
                 <Room room={room} fromDate={fromDate} toDate={toDate}/>
+
               </div>
             ))}
           </div>

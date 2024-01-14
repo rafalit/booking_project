@@ -1,6 +1,7 @@
 import React from 'react';
 
 function Navbar() {
+
   const user = JSON.parse(localStorage.getItem('currentUser'));
 
 function logout(){
@@ -8,11 +9,14 @@ function logout(){
   window.location.href = '/login';
 }
 
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
+
           MilusiPokoik.pl
+
         </a>
         <button
           className="navbar-toggler"
@@ -26,6 +30,7 @@ function logout(){
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+
           <div className="navbar-nav mr-5">
             {user ? (
               <>
@@ -49,6 +54,7 @@ function logout(){
                 </button>
               </>
             )}
+
           </div>
         </div>
       </div>

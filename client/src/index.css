@@ -34,11 +34,13 @@ code {
   border-radius: 5px !important;
 }
 
+
 .bigimg {
   width: 300px;
   height: 250px;
   border-radius: 5px !important;
 }
+
 
 .btn {
   background-color: black !important;
@@ -47,11 +49,14 @@ code {
 }
 
 .bs {
+
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
   margin-top: 20px !important;
   border-radius: 5px !important;
   padding: 20px !important;
 }
+
 
 
 input{
@@ -66,3 +71,4 @@ h2{
   font-weight: bold !important;
   text-align: center !important;
 }
+
