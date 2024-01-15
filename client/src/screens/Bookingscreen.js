@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
+import StripeCheckout from 'react-stripe-checkout';
+
 
 function Bookingscreen() {
   const { roomid, fromDate, toDate } = useParams();
@@ -68,7 +70,10 @@ function Bookingscreen() {
   }
   
 
+  async function onToken(token){
+    console.log(token)
 
+  }
 
 
   return (
@@ -111,7 +116,14 @@ function Bookingscreen() {
             </div>
   
             <div>
-              <button className="btn btn-primary" onClick={bookRoom}>Zamów</button>
+            <StripeCheckout
+              token={onToken}
+              amount={totalamount * 100}
+              currency="PLN"
+              stripeKey="pk_test_51OYurRJuf3K9tPXcZcPZIaXTgENwFOSldsVbQcIwEjwk6qrUTH7mf0DU8teJEBSF0WRkaoHVXn4HgvMqCLsFiG2q00QEBZtUly"
+              >
+              <button className="btn btn-primary">Zapłać</button>  
+              </StripeCheckout>
             </div>
           </div>
         </div>
