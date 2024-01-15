@@ -5,9 +5,7 @@ import Loader from '../components/Loader';
 import Error from '../components/Error';
 import moment from 'moment';
 import { DatePicker } from 'antd';
-import { set } from 'mongoose';
 import 'antd/dist/reset.css';
-
 
 const { RangePicker } = DatePicker;
 
@@ -19,8 +17,8 @@ function Homescreen() {
   const [fromDate, setCheckInDate] = useState();
   const [toDate, setCheckOutDate] = useState();
 
-const [duplicateRooms, setDuplikat] = useState([]);
-  
+  const [duplicateRooms, setDuplikat] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,33 +42,32 @@ const [duplicateRooms, setDuplikat] = useState([]);
     // Set check-in and check-out dates
     const checkInDate = dates[0].format("DD-MM-YYYY");
     const checkOutDate = dates[1].format("DD-MM-YYYY");
-  
+
     // Filter rooms based on availability
     const availableRooms = duplicateRooms.filter((room) => {
       const isRoomAvailable = room.currentbookings.every((booking) => {
-        const bookingStartDate = moment(booking.checkInDate, "DD-MM-YYYY");
-        const bookingEndDate = moment(booking.checkOutDate, "DD-MM-YYYY");
-  
+        const bookingStartDate = moment(booking.fromdate, "DD-MM-YYYY");
+        const bookingEndDate = moment(booking.todate, "DD-MM-YYYY");
+
         // Check if selected dates overlap with any existing booking
         return (
           moment(checkInDate, "DD-MM-YYYY").isAfter(bookingEndDate) ||
           moment(checkOutDate, "DD-MM-YYYY").isBefore(bookingStartDate)
         );
       });
-  
+
       return isRoomAvailable;
     });
-  
+
     setRooms(availableRooms);
+    setCheckInDate(checkInDate); // Set the selected check-in date
+    setCheckOutDate(checkOutDate); // Set the selected check-out date
   }
-  
-  
-  
+
   return (
     <div className='container'>
       <div className="row justify-content-center ml-5">
-   
-      <div className="col-md-5 mt-5">
+        <div className="col-md-5 mt-5">
           <RangePicker format='DD-MM-YYYY' onChange={filterByDate}/>
         </div>
         {loading ? (
