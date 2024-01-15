@@ -6,7 +6,7 @@ import Error from '../components/Error';
 import moment from 'moment';
 import { DatePicker } from 'antd';
 import 'antd/dist/reset.css';
-
+//jakis błąd był
 const { RangePicker } = DatePicker;
 
 function Homescreen() {
