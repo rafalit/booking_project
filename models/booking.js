@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bookingSchema = mongoose.Schema({
     room: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Room',
+        ref: 'Room', // Assuming your Room model is named 'Room'
         required: true
     },
     userid: {
@@ -22,7 +22,7 @@ const bookingSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    totaldays: {
+    totalDays: {
         type: Number,
         required: true
     },
@@ -36,7 +36,8 @@ const bookingSchema = mongoose.Schema({
         default: "booked"
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    collection: 'rezerwacje'
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

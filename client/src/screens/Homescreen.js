@@ -7,6 +7,8 @@ import moment from 'moment';
 import { DatePicker } from 'antd';
 import { set } from 'mongoose';
 import 'antd/dist/reset.css';
+
+
 const { RangePicker } = DatePicker;
 
 function Homescreen() {
@@ -14,10 +16,10 @@ function Homescreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
+  const [fromDate, setCheckInDate] = useState();
+  const [toDate, setCheckOutDate] = useState();
 
-
+const [duplicateRooms, setDuplikat] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +27,7 @@ function Homescreen() {
         setLoading(true);
         const data = (await axios.get('/api/rooms/getallrooms')).data || {};
         console.log("Data from server:", data);
+        setDuplikat(data);
         setRooms(data);
       } catch (error) {
         setError(true);
@@ -38,12 +41,31 @@ function Homescreen() {
   }, []);
 
   function filterByDate(dates) {
- 
-    setFromDate((dates[0]).format('DD-MM-YYYY'));
-    setToDate((dates[1]).format('DD-MM-YYYY'));
-    
+    // Set check-in and check-out dates
+    const checkInDate = dates[0].format("DD-MM-YYYY");
+    const checkOutDate = dates[1].format("DD-MM-YYYY");
   
-}
+    // Filter rooms based on availability
+    const availableRooms = duplicateRooms.filter((room) => {
+      const isRoomAvailable = room.currentbookings.every((booking) => {
+        const bookingStartDate = moment(booking.checkInDate, "DD-MM-YYYY");
+        const bookingEndDate = moment(booking.checkOutDate, "DD-MM-YYYY");
+  
+        // Check if selected dates overlap with any existing booking
+        return (
+          moment(checkInDate, "DD-MM-YYYY").isAfter(bookingEndDate) ||
+          moment(checkOutDate, "DD-MM-YYYY").isBefore(bookingStartDate)
+        );
+      });
+  
+      return isRoomAvailable;
+    });
+  
+    setRooms(availableRooms);
+  }
+  
+  
+  
   return (
     <div className='container'>
       <div className="row justify-content-center ml-5">

@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const Room = require('../models/room');
+const mongoose = require("mongoose"); // Dodaj tę linię, aby zaimportować mongoose
 const Booking = require('../models/booking');
 
 router.post("/bookroom", async (req, res) => {
@@ -10,25 +12,39 @@ router.post("/bookroom", async (req, res) => {
 
         const newBooking = new Booking({
             room: {
+                _id: new mongoose.Types.ObjectId(room._id), // Zmień 'mongoose' na 'mongoose.Types.ObjectId'
                 name: room.name,
-                _id: room._id,
             },
             userid,
             fromDate,
             toDate,
             totalamount,
             totalDays,
-            transactionId: "1234",
+            transactionid: "1234", // Zmień 'transactionId' na 'transactionid'
+            status: "booked", // Dodaj status 'booked'
         });
+
 
         const booking = await newBooking.save();
 
-        res.status(200).json({ message: "Room booked successfully", booking });
+        const roomtmp = await Room.findOne({ _id: room._id }).exec();
+
+        roomtmp.currentbookings.push({ bookingid: booking._id,
+             fromdate: fromDate, 
+             todate: toDate,
+                userid: userid,
+                status: booking.status,
+             }); // Dodaj poniższe linie, aby dodać id rezerwacji do listy rezerwacji pokoju
+             await roomtmp.save();
+        res.status(200).json({ message: "Booking booked successfully", booking });
     } catch (error) {
-        console.error("Error while booking room:", error);
+        console.error("Error during booking:", error);
+
+        // Dodaj poniższe linie, aby zalogować dodatkowe informacje o błędzie
+        console.error("Error details:", error.stack);
 
         if (error.name === 'ValidationError') {
-            res.status(400).json({ message: "Validation failed", errors: error.errors });
+            res.status(400).json({ message: "Validation error", errors: error.errors });
         } else {
             res.status(500).json({ message: "Internal Server Error" });
         }

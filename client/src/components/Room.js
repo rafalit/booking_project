@@ -2,18 +2,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Room({ room,fromDate,toDate}) {
+function Room({ room, fromDate, toDate }) {
     console.log("Room Data:", room);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-<Room room={room} fromDate={room.fromDate} toDate={room.toDate} />
+
     if (!room || !room.imageurl || !Array.isArray(room.imageurl) || room.imageurl.length === 0) {
         return <div>Error: Room data is incomplete</div>;
     }
 
     // Log the image URLs
     console.log("Image URLs:", room.imageurl);
+
+    const isDatesSelected = fromDate && toDate;
 
     return (
         <div className='row bs'>
@@ -41,9 +43,12 @@ function Room({ room,fromDate,toDate}) {
                 </div>
 
                 <div style={{ float: "right" }}>
-                    <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-                        <button className='btn btn-primary m-2'>Book Now</button>
-                    </Link>
+                    {isDatesSelected && (
+                        <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
+                            <button className='btn btn-primary m-2'>Book Now</button>
+                        </Link>
+                    )}
+
                     <button className='btn btn-primary' onClick={handleShow}>View Details</button>
                 </div>
             </div>

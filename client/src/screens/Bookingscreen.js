@@ -16,7 +16,8 @@ function Bookingscreen() {
   const totalDays = moment(toDate, "DD-MM-YYYY").diff(
     moment(fromDate, "DD-MM-YYYY"),
     "days"
-    );
+  );
+  
 
   useEffect(() => {
     const fetchRoomById = async () => {
@@ -45,52 +46,28 @@ function Bookingscreen() {
   };
   async function bookRoom() {
     const bookingDetails = {
-        room: {
-            name: room.name,
-            _id: room._id,
-        },
-        userid: JSON.parse(localStorage.getItem('currentUser'))._id,
-        fromDate,
-        toDate,
-        totalamount: calculateTotalPrice(totalDays),
-        totalDays,
+      room: {
+        name: room.name,
+        _id: room._id,
+      },
+      userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+      fromDate,
+      toDate,
+      totalamount: calculateTotalPrice(totalDays),
+      totalDays,  // Include totalDays in the bookingDetails
     };
-
+  
+    console.log("Booking details:", bookingDetails);  // Verify the booking details
+  
     try {
-        await axios.post('/api/bookings/bookroom', bookingDetails);
-        // Handle success, e.g., show a success message or redirect to a bookings page
+      const result = await axios.post('/api/bookings/bookroom', bookingDetails);
+      alert('Booking done successfully');
     } catch (error) {
-        console.error("Error booking room:", error);
-
-        if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-
-            if (error.response.status === 400) {
-                // Handle specific 400 Bad Request scenarios
-                console.error("Bad Request. Details:", error.response.data);
-
-                // Display user-friendly error message
-                // You might want to customize this based on your specific validation errors
-                alert("Invalid booking request. Please check your input.");
-            } else {
-                // Handle other error scenarios
-                console.error("Error response:", error.response.status, error.response.data);
-                alert("An error occurred while processing your request.");
-            }
-        } else if (error.request) {
-            // The request was made but no response was received
-            console.error("No response received. The request was made but no response was received.");
-            alert("No response received. Please try again later.");
-        } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error("Error setting up the request:", error.message);
-            alert("An unexpected error occurred. Please try again later.");
-        }
-
-        // Handle error, e.g., show an error message
+      console.error('Error during booking:', error.message, error.response);
     }
-}
+  }
+  
+
 
 
 
@@ -111,30 +88,30 @@ function Bookingscreen() {
             <h1>{room.name}</h1>
             <img src={room.imageurl[0]} className="bigimg" alt={room.name} />
           </div>
-
+  
           <div className="col-md-5">
             <h1>Szczegóły zamówienia</h1>
             <hr />
             <b>
-              <p>Nazwa: {room.name}</p>
+              <p>Nazwa: {JSON.parse(localStorage.getItem('currentUser')).username}</p>
               <p>Pobyt od: {fromDate}</p>
               <p>Pobyt do: {toDate}</p>
               <p>Dla {room.maxcount} osób </p>
             </b>
-
+  
             <div>
               <b>
                 <h1>Cena</h1>
-
+  
                 <hr />
                 <p>Ilość dni: {totalDays}</p>
                 <p>Cena za noc: {room.renpertday}</p>
                 <p>Całość: {calculateTotalPrice(totalDays)}</p>
               </b>
             </div>
-
+  
             <div>
-              <button className="btn btn-primary"onClick={bookRoom}>Zamów</button>
+              <button className="btn btn-primary" onClick={bookRoom}>Zamów</button>
             </div>
           </div>
         </div>
