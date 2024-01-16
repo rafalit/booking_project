@@ -1,22 +1,22 @@
 import React from 'react';
 
+// Komponent Navbar
 function Navbar() {
-
+  // Pobranie informacji o użytkowniku z lokalnego magazynu
   const user = JSON.parse(localStorage.getItem('currentUser'));
 
-function logout(){
-  localStorage.removeItem('currentUser');
-  window.location.href = '/login';
-}
-
+  // Funkcja obsługująca wylogowanie użytkownika
+  function logout() {
+    localStorage.removeItem('currentUser');  // Usunięcie danych użytkownika z lokalnego magazynu
+    window.location.href = '/login';  // Przekierowanie użytkownika na stronę logowania
+  }
 
   return (
+    // Struktura paska nawigacyjnego
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-
           MilusiPokoik.pl
-
         </a>
         <button
           className="navbar-toggler"
@@ -30,22 +30,35 @@ function logout(){
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-
           <div className="navbar-nav mr-5">
+            {/* Warunek sprawdzający, czy użytkownik jest zalogowany */}
             {user ? (
               <>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {/* Dropdown menu dla zalogowanego użytkownika */}
+                <div className="dropdown">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
                     {user.username}
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Zamówienia</a>
-                    <a class="dropdown-item" href="#" onClick={logout}>Wyloguj</a>
+                  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a className="dropdown-item" href="#">
+                      Zamówienia
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={logout}>
+                      Wyloguj
+                    </a>
                   </div>
                 </div>
               </>
             ) : (
               <>
+                {/* Przyciski dla niezalogowanego użytkownika */}
                 <button className="nav-item nav-link" onClick={() => { window.location.href = '/register'; }}>
                   Rejestracja
                 </button>
@@ -54,7 +67,6 @@ function logout(){
                 </button>
               </>
             )}
-
           </div>
         </div>
       </div>
@@ -62,4 +74,5 @@ function logout(){
   );
 }
 
+// Eksportuje komponent Navbar do użycia w innych częściach aplikacji
 export default Navbar;
