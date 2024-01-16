@@ -34,7 +34,7 @@ function logout(){
                     {user.username}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Zamówienia</a>
+                    <a class="dropdown-item" href="/bookings">Zamówienia</a>
                     <a class="dropdown-item" href="#" onClick={logout}>Wyloguj</a>
                   </div>
                 </div>

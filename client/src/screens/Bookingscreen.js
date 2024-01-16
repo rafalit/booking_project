@@ -5,7 +5,8 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from 'react-stripe-checkout';
-
+import { set } from "mongoose";
+import Swal from 'sweetalert2';
 
 function Bookingscreen() {
   const { roomid, fromDate, toDate } = useParams();
@@ -46,7 +47,8 @@ function Bookingscreen() {
   const calculateTotalPrice = (totalDays) => {
     return totalDays * room.renpertday;
   };
-  async function bookRoom() {
+  async function onToken(token) {
+    console.log(token);
     const bookingDetails = {
       room: {
         name: room.name,
@@ -57,23 +59,27 @@ function Bookingscreen() {
       toDate,
       totalamount: calculateTotalPrice(totalDays),
       totalDays,  // Include totalDays in the bookingDetails
+      token,
     };
   
     console.log("Booking details:", bookingDetails);  // Verify the booking details
   
     try {
+      setLoading(true);
       const result = await axios.post('/api/bookings/bookroom', bookingDetails);
-      alert('Booking done successfully');
+      setLoading(false);
+      Swal.fire('Success', 'Zarezerwowano pokój', 'success').then(result => {
+        window.location.href = '/bookings'
+      })
+     // alert('Booking done successfully');
     } catch (error) {
+      setLoading(false);
+      Swal.fire('Error', 'Nie udało się zarezerwować pokoju', 'error')
       console.error('Error during booking:', error.message, error.response);
     }
   }
   
 
-  async function onToken(token){
-    console.log(token)
-
-  }
 
 
   return (

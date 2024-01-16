@@ -8,8 +8,8 @@ const Booking = require('../models/booking');
 
 router.post("/bookroom", async (req, res) => {
     const { room, userid, fromDate, toDate, totalamount, totalDays, token } = req.body;
-
-    try {
+    
+    try {   
         // Sprawdzanie, czy dane tokena są poprawne
         if (!token || !token.email || !token.id) {
             return res.status(400).json({ message: "Nieprawidłowe dane tokena" });
@@ -32,7 +32,7 @@ router.post("/bookroom", async (req, res) => {
         });
 
         // Sprawdzanie statusu płatności
-        if (payment.status === 'succeeded') {
+        if (payment) {
             try {
                 // Logika rezerwacji pokoju
                 console.log("Otrzymano żądanie rezerwacji:", req.body);
@@ -64,7 +64,7 @@ router.post("/bookroom", async (req, res) => {
                 });
 
                 await roomtmp.save();
-
+                console.log("Received data on the server:", req.body);
                 // Odpowiedź w przypadku udanej rezerwacji
                 res.status(200).json({ message: "Rezerwacja zakończona sukcesem", booking });
             } catch (error) {
@@ -80,12 +80,23 @@ router.post("/bookroom", async (req, res) => {
             }
         } else {
             // Odpowiedź w przypadku nieudanej płatności
+            
             res.status(500).json({ message: "Płatność nieudana" });
         }
     } catch (error) {
-        // Obsługa błędów podczas płatności
-        console.error("Błąd podczas płatności:", error);
-        return res.status(400).json({ message: "Błąd płatności", error: error.message });
+        // Obsługa błędów
+        console.error("Błąd podczas przetwarzania żądania:", error);
+        
+        if (error instanceof stripe.errors.StripeError) {
+            // Obsługa błędów Stripe
+            res.status(error.statusCode || 500).json({ message: error.message });
+        } else if (error.name === 'ValidationError') {
+            // Obsługa błędów walidacji
+            res.status(400).json({ message: "Błąd walidacji", errors: error.errors });
+        } else {
+            // Obsługa innych błędów
+            res.status(500).json({ message: "Wewnętrzny błąd serwera" });
+        }
     }
 });
 

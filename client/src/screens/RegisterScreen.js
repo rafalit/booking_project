@@ -24,7 +24,7 @@ const RegisterScreen = () => {
         username,
         email,
         password,
-        confirmPassword
+       // confirmPassword
       };
 
       try {
