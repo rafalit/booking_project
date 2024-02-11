@@ -52,5 +52,20 @@ const roomSchema = mongoose.Schema({
 // Tworzenie modelu 'Room' na podstawie zdefiniowanego schematu
 const Room = mongoose.model('Room', roomSchema);
 
+async function clearCurrentBookings() {
+  try {
+    const result = await Room.updateMany({}, { $set: { currentbookings: [] } });
+    console.log(`Zaktualizowano ${result.nModified} rekordów.`);
+  } catch (error) {
+    console.error("Błąd podczas aktualizacji rekordów:", error);
+  } finally {
+    mongoose.connection.close();
+  }
+}
+
+// Wywołaj funkcję do wyczyszczenia pola currentbookings dla wszystkich pokoi
+//clearCurrentBookings();
+
+
 // Eksportowanie modelu 'Room' do użycia w innych częściach aplikacji
 module.exports = Room;

@@ -15,12 +15,12 @@ const bookingSchema = mongoose.Schema({
     },
     // Data początkowa rezerwacji
     fromDate: {
-        type: String,
+        type: Date,
         required: true
     },
     // Data końcowa rezerwacji
     toDate: {
-        type: String,
+        type: Date,
         required: true
     },
     // Całkowita kwota rezerwacji
@@ -29,7 +29,7 @@ const bookingSchema = mongoose.Schema({
         required: true
     },
     // Całkowita liczba dni rezerwacji
-    totaldays: {
+    totalDays: {
         type: Number,
         required: true
     },

@@ -7,30 +7,29 @@ import moment from "moment";
 
 // Komponent Bookingscreen
 function Bookingscreen() {
-  // Pobranie parametrów z adresu URL za pomocą hooka useParams
   const { roomid, fromDate, toDate } = useParams();
-
-  // Stany do przechowywania danych o pokoju, informacji o błędzie oraz stanu ładowania
   const [room, setRoom] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [totalDays, setTotalDays] = useState(0);
   const [totalamount, setTotalamount] = useState();
-
-  // Obliczenie całkowitej liczby dni między datą od a datą do
-  const totalDays = moment(toDate, "DD-MM-YYYY").diff(
-    moment(fromDate, "DD-MM-YYYY"),
-    "days"
-  );
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [reservationSuccess, setReservationSuccess] = useState(false);
 
   // Efekt pobierający dane o pokoju po zamontowaniu komponentu
   useEffect(() => {
     const fetchRoomById = async () => {
       try {
         setLoading(true);
+
         // Pobranie danych o pokoju z serwera za pomocą zapytania POST
-        const data = (await axios.post("/api/rooms/getroombyid", { roomid })).data;
-        setTotalamount(data.renpertday * totalDays);
+        const response = await axios.post("/api/rooms/getroombyid", { roomid });
+        const data = response.data;
+
         setRoom(data);
+        setTotalDays(moment(toDate, "DD-MM-YYYY").diff(moment(fromDate, "DD-MM-YYYY"), "days") + 1);
+        setTotalamount(data.renpertday * totalDays);
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching room:", error);
@@ -50,6 +49,13 @@ function Bookingscreen() {
 
   // Funkcja obsługująca rezerwację pokoju
   async function bookRoom() {
+
+    if (buttonClicked) {
+      return; // Jeśli tak, nie wykonuj nic
+    }
+
+    setButtonClicked(true);
+
     const bookingDetails = {
       room: {
         name: room.name,
@@ -60,41 +66,18 @@ function Bookingscreen() {
       toDate,
       totalamount: calculateTotalPrice(totalDays),
       totalDays,
+      transactionid: 'xyz123',
     };
 
     try {
       // Wysłanie zapytania POST do endpointa odpowiedzialnego za rezerwację pokoju
       await axios.post('/api/bookings/bookroom', bookingDetails);
+      setReservationSuccess(true);
       // Obsługa sukcesu, np. wyświetlenie komunikatu o sukcesie lub przekierowanie na stronę rezerwacji
     } catch (error) {
       console.error("Error booking room:", error);
 
-      if (error.response) {
-        // Obsługa błędów HTTP
-
-        if (error.response.status === 400) {
-          // Obsługa konkretnych scenariuszy błędu 400 Bad Request
-          console.error("Bad Request. Details:", error.response.data);
-
-          // Wyświetlenie użytkownikowi przyjaznej wiadomości o błędzie
-          // Możesz dostosować to w zależności od konkretnych błędów walidacji
-          alert("Invalid booking request. Please check your input.");
-        } else {
-          // Obsługa innych scenariuszy błędów
-          console.error("Error response:", error.response.status, error.response.data);
-          alert("An error occurred while processing your request.");
-        }
-      } else if (error.request) {
-        // Obsługa sytuacji, gdy żądanie zostało wykonane, ale nie otrzymano odpowiedzi
-        console.error("No response received. The request was made but no response was received.");
-        alert("No response received. Please try again later.");
-      } else {
-        // Obsługa innych rodzajów błędów
-        console.error("Error setting up the request:", error.message);
-        alert("An unexpected error occurred. Please try again later.");
-      }
-
-      // Obsługa błędu, np. wyświetlenie komunikatu o błędzie
+      // Handle errors as needed
     }
   }
 
@@ -129,7 +112,6 @@ function Bookingscreen() {
             <div>
               <b>
                 <h1>Cena</h1>
-
                 <hr />
                 <p>Ilość dni: {totalDays}</p>
                 <p>Cena za noc: {room.renpertday}</p>
@@ -137,11 +119,21 @@ function Bookingscreen() {
               </b>
             </div>
 
-            <div>
-              {/* Przycisk rezerwacji pokoju */}
-              <button className="btn btn-primary" onClick={bookRoom}>Zamów</button>
-            </div>
-          </div>
+                <div>
+                  {/* Przycisk rezerwacji pokoju */}
+                  <button className="btn btn-primary" onClick={bookRoom} disabled={buttonClicked}>
+                      Zamów
+                  </button>
+                </div>
+
+                {/* Warunek dla sukcesu rezerwacji */}
+                {reservationSuccess && (
+                  <div>
+                    <h1 style={{ color: 'green' }}>Rezerwacja zakończona sukcesem!</h1>
+                    {/* Dodatkowe informacje lub przekierowanie, jeśli to jest wymagane */}
+                  </div>
+                )}
+              </div>
         </div>
       )}
     </div>

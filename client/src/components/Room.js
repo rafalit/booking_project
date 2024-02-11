@@ -1,24 +1,18 @@
+// Room.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-// Komponent Room
 function Room({ room, fromDate, toDate }) {
-    console.log("Room Data:", room);
     
-    // Stan do kontrolowania widoczności modalu
     const [show, setShow] = useState(false);
-
-    // Funkcje do otwierania i zamykania modalu
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // Warunek sprawdzający kompletność danych o pokoju
     if (!room || !room.imageurl || !Array.isArray(room.imageurl) || room.imageurl.length === 0) {
         return <div>Error: Room data is incomplete</div>;
     }
 
-    // Logowanie adresów URL obrazków pokoju
-    console.log("Image URLs:", room.imageurl);
+    const isDatesSelected = fromDate && toDate;
 
     return (
         <div className='row bs'>
@@ -29,7 +23,6 @@ function Room({ room, fromDate, toDate }) {
                 <div>
                     <h1>{room.name}</h1>
                 </div>
-
                 <div>
                     <p>Liczba gości: {room.maxcount}</p>
                 </div>
@@ -47,11 +40,12 @@ function Room({ room, fromDate, toDate }) {
                 </div>
 
                 <div style={{ float: "right" }}>
-                    {/* Przekierowanie do strony rezerwacji z danymi pokoju */}
-                    <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-                        <button className='btn btn-primary m-2'>Book Now</button>
-                    </Link>
-                    {/* Przycisk otwierający modal z dodatkowymi detalami pokoju */}
+                    {isDatesSelected && (
+                        <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
+                            <button className='btn btn-primary m-2'>Book Now</button>
+                        </Link>
+                    )}
+
                     <button className='btn btn-primary' onClick={handleShow}>View Details</button>
                 </div>
             </div>
@@ -59,5 +53,4 @@ function Room({ room, fromDate, toDate }) {
     );
 }
 
-// Eksportuje komponent Room do użycia w innych częściach aplikacji
 export default Room;
