@@ -4,58 +4,52 @@ import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import moment from "moment";
+import StripeCheckout from 'react-stripe-checkout';
+import { set } from "mongoose";
+import Swal from 'sweetalert2';
 
-// Komponent Bookingscreen
 function Bookingscreen() {
   const { roomid, fromDate, toDate } = useParams();
+
   const [room, setRoom] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [totalDays, setTotalDays] = useState(0);
   const [totalamount, setTotalamount] = useState();
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [reservationSuccess, setReservationSuccess] = useState(false);
 
-  // Efekt pobierający dane o pokoju po zamontowaniu komponentu
-  useEffect(() => {
-    const fetchRoomById = async () => {
-      try {
-        setLoading(true);
+  const totalDays = moment(toDate, "DD-MM-YYYY").diff(
+    moment(fromDate, "DD-MM-YYYY"),
+    "days"
+  );
+  
 
-        // Pobranie danych o pokoju z serwera za pomocą zapytania POST
-        const response = await axios.post("/api/rooms/getroombyid", { roomid });
-        const data = response.data;
-
-        setRoom(data);
-        setTotalDays(moment(toDate, "DD-MM-YYYY").diff(moment(fromDate, "DD-MM-YYYY"), "days") + 1);
-        setTotalamount(data.renpertday * totalDays);
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching room:", error);
-        setError(true);
-        setLoading(false);
-      }
-    };
-
-    // Wywołanie funkcji fetchRoomById
-    fetchRoomById();
-  }, [roomid, fromDate, toDate, totalDays]);
-
-  // Funkcja obliczająca całkowitą cenę rezerwacji
-  const calculateTotalPrice = (totalDays) => {
-    return totalDays * room.renpertday;
+  // Poprawiona część kodu w Bookingscreen
+useEffect(() => {
+  const fetchRoomById = async () => {
+    try {
+      setLoading(true);
+      const data = (await axios.post("/api/rooms/getroombyid", { roomid })).data;
+      setRoom(data);
+      setTotalamount(await calculateTotalPrice(totalDays));
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching room:", error);
+      setError(true);
+      setLoading(false);
+    }
   };
 
-  // Funkcja obsługująca rezerwację pokoju
-  async function bookRoom() {
+  const calculateTotalPrice = async (totalDays) => {
+    return totalDays * room.rentperday;
+  };
 
-    if (buttonClicked) {
-      return; // Jeśli tak, nie wykonuj nic
-    }
+  fetchRoomById();
+}, [roomid, fromDate, toDate]);
 
-    setButtonClicked(true);
-
+  const calculateTotalPrice = (totalDays) => {
+    return totalDays * room.rentperday;
+  };
+  async function onToken(token) {
+    console.log(token);
     const bookingDetails = {
       room: {
         name: room.name,
@@ -65,25 +59,33 @@ function Bookingscreen() {
       fromDate,
       toDate,
       totalamount: calculateTotalPrice(totalDays),
-      totalDays,
-      transactionid: 'xyz123',
+      totalDays,  // Include totalDays in the bookingDetails
+      token,
     };
-
+  
+    console.log("Booking details:", bookingDetails);  // Verify the booking details
+  
     try {
-      // Wysłanie zapytania POST do endpointa odpowiedzialnego za rezerwację pokoju
-      await axios.post('/api/bookings/bookroom', bookingDetails);
-      setReservationSuccess(true);
-      // Obsługa sukcesu, np. wyświetlenie komunikatu o sukcesie lub przekierowanie na stronę rezerwacji
+      setLoading(true);
+      const result = await axios.post('/api/bookings/bookroom', bookingDetails);
+      setLoading(false);
+      Swal.fire('Success', 'Zarezerwowano pokój', 'success').then(result => {
+        window.location.href = '/bookings'
+      })
+     // alert('Booking done successfully');
     } catch (error) {
-      console.error("Error booking room:", error);
-
-      // Handle errors as needed
+      setLoading(false);
+      Swal.fire('Error', 'Nie udało się zarezerwować pokoju', 'error')
+      console.error('Error during booking:', error.message, error.response);
     }
   }
+  
+
+
 
   return (
     <div>
-      {/* Część komponentu do wyświetlania szczegółów pokoju */}
+      {/* Rest of the component to display room details */}
       {loading ? (
         <h1>
           <Loader />
@@ -98,47 +100,43 @@ function Bookingscreen() {
             <h1>{room.name}</h1>
             <img src={room.imageurl[0]} className="bigimg" alt={room.name} />
           </div>
-
+  
           <div className="col-md-5">
             <h1>Szczegóły zamówienia</h1>
             <hr />
             <b>
-              <p>Nazwa: {room.name}</p>
+              <p>Nazwa: {JSON.parse(localStorage.getItem('currentUser')).username}</p>
               <p>Pobyt od: {fromDate}</p>
               <p>Pobyt do: {toDate}</p>
               <p>Dla {room.maxcount} osób </p>
             </b>
-
+  
             <div>
               <b>
                 <h1>Cena</h1>
+
                 <hr />
                 <p>Ilość dni: {totalDays}</p>
-                <p>Cena za noc: {room.renpertday}</p>
+                <p>Cena za noc: {room.rentperday}</p>
                 <p>Całość: {calculateTotalPrice(totalDays)}</p>
               </b>
             </div>
 
-                <div>
-                  {/* Przycisk rezerwacji pokoju */}
-                  <button className="btn btn-primary" onClick={bookRoom} disabled={buttonClicked}>
-                      Zamów
-                  </button>
-                </div>
-
-                {/* Warunek dla sukcesu rezerwacji */}
-                {reservationSuccess && (
-                  <div>
-                    <h1 style={{ color: 'green' }}>Rezerwacja zakończona sukcesem!</h1>
-                    {/* Dodatkowe informacje lub przekierowanie, jeśli to jest wymagane */}
-                  </div>
-                )}
-              </div>
+            <div>
+              <StripeCheckout
+                token={onToken}
+                amount={totalamount * 100}  // Make sure totalamount is in the correct currency and format
+                currency="PLN"
+                stripeKey="pk_test_51OYurRJuf3K9tPXcZcPZIaXTgENwFOSldsVbQcIwEjwk6qrUTH7mf0DU8teJEBSF0WRkaoHVXn4HgvMqCLsFiG2q00QEBZtUly"
+              >
+                <button className="btn btn-primary">Zapłać</button>
+              </StripeCheckout>
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-// Eksportuje komponent Bookingscreen do użycia w innych częściach aplikacji
 export default Bookingscreen;

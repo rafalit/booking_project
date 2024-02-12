@@ -18,7 +18,7 @@ const roomSchema = mongoose.Schema({
         required: true
     },
     // Opłata za wynajem pokoju za dzień
-    renpertday: {
+    rentperday: {
         type: Number,
         required: true
     },
@@ -41,6 +41,16 @@ const roomSchema = mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+
+    city: {
+        type: String,
+        required:true
+    },
+
+    voivodeship: {
+        type: String,
+        required: true,
     },
 }, {
     // Opcje, w tym ustawienie automatycznego generowania znaczników czasu

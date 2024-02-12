@@ -16,6 +16,9 @@
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
     "react-stripe-checkout": "^2.6.3",
+    "stripe": "^14.16.0",
+    "sweetalert2": "^11.10.5",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
