@@ -24,10 +24,13 @@ function Room({ room, fromDate, toDate }) {
                     <h1>{room.name}</h1>
                 </div>
                 <div>
+                    <p>Miasto: {room.city}</p>
+                </div>
+                <div>
                     <p>Liczba gości: {room.maxcount}</p>
                 </div>
                 <div>
-                    <p>Cena za noc: {room.renpertday}</p>
+                    <p>Cena za noc: {room.rentperday}</p>
                 </div>
                 <div>
                     <p>Opis: {room.description}</p>
