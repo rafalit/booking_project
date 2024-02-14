@@ -49,7 +49,7 @@ useEffect(() => {
     return totalDays * room.rentperday;
   };
   async function onToken(token) {
-    console.log(token);
+    //console.log(token);
     const bookingDetails = {
       room: {
         name: room.name,
@@ -63,7 +63,7 @@ useEffect(() => {
       token,
     };
   
-    console.log("Booking details:", bookingDetails);  // Verify the booking details
+    //console.log("Booking details:", bookingDetails);  // Verify the booking details
   
     try {
       setLoading(true);

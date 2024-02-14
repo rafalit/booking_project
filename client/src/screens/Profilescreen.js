@@ -45,8 +45,7 @@ function MyBookings() {
       try {
         setLoading(true);
         const data = await axios.post('api/bookings/getbookingsbyuserid', { userid: user._id });
-        console.log(data);
-        setBookings(data.data);  // Assuming data is an array
+        setBookings(data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -58,36 +57,49 @@ function MyBookings() {
     fetchData();
   }, [user._id]);
 
+  async function cancelBooking(bookingid, roomid) {
+    try {
+      console.log(bookingid)
+      console.log(roomid)
+      setLoading(true);
+      await axios.post("/api/bookings/cancelbooking", { bookingid, roomid });
+      // Update state to reflect the canceled booking
+      setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingid));
+      setLoading(false);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
+
   return (
     <div>
       <div className='row'>
         <div className='col-md-6'>
-
           {loading && (<Loader />)}
-          {bookings && (bookings.map(booking => {
-            console.log(booking);
-
-            return (
-              <div className='bs' key={booking._id}>
-                <h1>{booking.name}</h1>
-                <p><b>Id Rezerwacji: </b>{booking._id}</p>
-                <p><b>Data zakwaterowania: </b>{new Date(booking.fromDate).toLocaleDateString("en-GB")}</p>
-                <p><b>Data wykwaterowania: </b>{new Date(booking.toDate).toLocaleDateString("en-GB")}</p>
-                <p><b>Koszt: </b>{booking.totalamount}</p>
-                <p><b>Status: </b><span style={{ color: booking.status === 'booked' ? '#4CAF50' : '#FF0000' }}>{booking.status === 'booked' ? "Zaakceptowane" : "Odrzucone"}</span></p>
-
+          {bookings && (bookings.map(booking => (
+            <div className='bs' key={booking._id}>
+              <h1>{booking.name}</h1>
+              <p><b>Id Rezerwacji: </b>{booking._id}</p>
+              <p><b>Data zakwaterowania: </b>{new Date(booking.fromDate).toLocaleDateString("en-GB")}</p>
+              <p><b>Data wykwaterowania: </b>{new Date(booking.toDate).toLocaleDateString("en-GB")}</p>
+              <p><b>Koszt: </b>{booking.totalamount}</p>
+              <p><b>Status: </b>
+                <span style={{ color: booking.status === 'booked' ? '#4CAF50' : '#FF0000' }}>
+                  {booking.status === 'booked' ? "Zaakceptowane" : "Anulowane"}
+                </span>
+              </p>
+              {booking.status === 'booked' && (
                 <div className='text-right'>
-                  <button className='btn btn-primary'>Anuluj zamówienie</button>
+                  <button className='btn btn-primary' onClick={() => { cancelBooking(booking._id, booking.roomid) }}>Anuluj zamówienie</button>
                 </div>
-              </div>
-            );
-          }))}
-
-
+              )}
+            </div>
+          )))}
           {error && (<Error message={error.message} />)}
         </div>
       </div>
     </div>
   );
-
 }

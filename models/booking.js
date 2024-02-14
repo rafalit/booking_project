@@ -3,11 +3,15 @@ const mongoose = require("mongoose");
 // Definicja schematu danych dla rezerwacji
 const bookingSchema = mongoose.Schema({
     // Identyfikator pokoju - referencja do innego modelu 'Room'
-    room: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Room',
+    name: {
+        type: String,
         required: true
     },
+    roomid:{
+        type:String,
+        required:true,
+    },
+
     // Identyfikator użytkownika
     userid: {
         type: String,

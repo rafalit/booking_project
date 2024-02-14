@@ -37,18 +37,16 @@ router.post("/bookroom", async (req, res) => {
 
     if (payment) {
       const newBooking = new Booking({
-        room: {
-          _id: new mongoose.Types.ObjectId(room._id),
-          name: room.name,
-        },
+        name: room.name,
+        roomid: room._id,
         userid,
         fromDate: moment.utc(fromDate, "DD-MM-YYYY").toDate(),
         toDate: moment.utc(toDate, "DD-MM-YYYY").toDate(),
-        totalamount,
         totalDays,
+        totalamount,
         transactionid: payment.id,
         status: "booked",
-      });
+    });
 
       const booking = await newBooking.save();
 
@@ -77,18 +75,48 @@ router.post("/bookroom", async (req, res) => {
 });
 
 
-router.post("/getbookingsbyuserid", async(req, res) => {
+router.post("/getbookingsbyuserid", async (req, res) => {
+  const userid = req.body.userid;
 
-  const userid = req.body.userid
-
-
-  try{
-    const bookings = await Booking.find({userid : userid})
-    res.send(bookings)
-  }catch(error){
-    return res.status(400).json({error});
+  try {
+    const bookings = await Booking.find({ userid: userid, status: { $ne: 'Canceled' } });
+    res.send(bookings);
+  } catch (error) {
+    return res.status(400).json({ error });
   }
-})
+});
+
+router.post("/cancelbooking", async (req, res) => {
+  const { bookingid } = req.body;
+  try {
+    const bookingitem = await Booking.findOne({ _id: bookingid });
+
+    if (!bookingitem) {
+      return res.status(404).json({ error: "Booking not found" });
+    }
+
+    // Update only the status field
+    bookingitem.status = 'cancelled';
+
+    await bookingitem.save();
+
+    const rooms = await Room.findOne({ _id: bookingitem.roomid });
+
+    if (!rooms) {
+      return res.status(404).json({ error: "Room not found" });
+    }
+
+    // Remove the canceled booking from currentbookings
+    rooms.currentbookings = rooms.currentbookings.filter(booking => booking.bookingid.toString() !== bookingid.toString());
+
+    await rooms.save();
+
+    res.send("Zamówienie zostało anulowane!");
+  } catch (error) {
+    console.error("Error during cancellation:", error);
+    res.status(500).json({ error: "An error occurred during cancellation." });
+  }
+});
 
 
 module.exports = router;
