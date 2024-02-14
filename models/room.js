@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 
 // Definicja schematu danych dla pokoju
 const roomSchema = mongoose.Schema({
+    
     // Nazwa pokoju
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     // Maksymalna liczba osób w pokoju
     maxcount: {
@@ -52,9 +54,10 @@ const roomSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    
 }, {
     // Opcje, w tym ustawienie automatycznego generowania znaczników czasu
-    timestamps: true,
+    //timestamps: true,
     // Nazwa kolekcji w bazie danych (opcjonalne)
     collection: 'pokoiki'
 });

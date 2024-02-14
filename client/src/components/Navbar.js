@@ -47,8 +47,8 @@ function Navbar() {
                     {user.username}
                   </button>
                   <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a className="dropdown-item" href="#">
-                      Zamówienia
+                    <a className="dropdown-item" href="/profile">
+                      Profil
                     </a>
                     <a className="dropdown-item" href="#" onClick={logout}>
                       Wyloguj

@@ -78,3 +78,21 @@ h2{
 .ant-picker-input input{
   border : none !important;
 }
+
+.custom-tabs .ant-tabs-content {
+  text-align: left;
+}
+
+.accepted {
+  background-color: #4CAF50; /* Zielony kolor tła dla zaakceptowanych rezerwacji */
+  color: white; /* Biały kolor tekstu dla zaakceptowanych rezerwacji */
+}
+
+.rejected {
+  background-color: #FF0000; /* Czerwony kolor tła dla odrzuconych rezerwacji */
+  color: white; /* Biały kolor tekstu dla odrzuconych rezerwacji */
+}
+
+p{
+  font-size : 15px !important;
+}

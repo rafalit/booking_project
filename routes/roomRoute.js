@@ -23,18 +23,14 @@ router.post('/getroombyid', async (req, res) => {
   const { roomid } = req.body;
 
   try {
-    // Pobranie pokoju z bazy danych na podstawie ID
     const room = await Room.findOne({ _id: roomid }).exec();
 
-    // Sprawdzenie, czy pokój został znaleziony
     if (!room) {
       return res.status(404).json({ message: "Room not found" });
     }
 
-    // Wysłanie pobranego pokoju jako odpowiedź
     res.send(room);
   } catch (error) {
-    // Obsługa błędów poprzez wywołanie funkcji handleErrorResponse
     return handleErrorResponse(res, error);
   }
 });
