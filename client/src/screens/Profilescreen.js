@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import Swal from 'sweetalert2';
 
 const { TabPane } = Tabs;
 
@@ -66,10 +67,12 @@ function MyBookings() {
       // Update state to reflect the canceled booking
       setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingid));
       setLoading(false);
-      window.location.reload();
+      Swal.fire('', 'Rezerwacja została anulowana', 'success').then(result => {window.location.reload();});
+      
     } catch (error) {
       console.log(error);
       setLoading(false);
+      Swal.fire('', 'Coś poszło nie tak', 'error');
     }
   }
 

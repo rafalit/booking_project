@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { Link } from 'react-router-dom';
 
 // Komponent LoginScreen
 const LoginScreen = () => {
@@ -51,7 +52,7 @@ const LoginScreen = () => {
         <div className="col-md-5">
           {error && (<Error message={error}/>)}
           <div className='bs'>  
-            <h2>Login</h2>
+            <h2>Logowanie</h2>
             {/* Inputy do wprowadzania danych email i hasła */}
             <input type="text" className="form-control" placeholder="email" 
               value={email} onChange={(e) => {setEmail(e.target.value)}}/>
@@ -59,6 +60,8 @@ const LoginScreen = () => {
               value={password} onChange={(e) => {setPassword(e.target.value)}}/>
             {/* Przycisk do wywołania funkcji logowania */}
             <button className="btn btn-primary mt-3" onClick={Login}>Login</button>
+            {/* Komunikat o rejestracji i link do strony rejestracji */}
+            <p className="mt-3">Nie masz jeszcze konta? Zarejestruj się <Link to="/register">tutaj</Link>.</p>
           </div>
         </div>
       </div>

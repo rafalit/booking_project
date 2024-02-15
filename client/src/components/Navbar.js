@@ -59,12 +59,14 @@ function Navbar() {
             ) : (
               <>
                 {/* Przyciski dla niezalogowanego użytkownika */}
-                <button className="nav-item nav-link" onClick={() => { window.location.href = '/register'; }}>
-                  Rejestracja
-                </button>
-                <button className="nav-item nav-link" onClick={() => { window.location.href = '/login'; }}>
+                <button className="nav-item nav-link btn btn-outline-success" onClick={() => { window.location.href = '/login'; }}>
                   Logowanie
                 </button>
+                
+                <button className="nav-item nav-link btn btn-outline-primary" onClick={() => { window.location.href = '/register'; }}>
+                  Rejestracja
+                </button>
+                
               </>
             )}
           </div>

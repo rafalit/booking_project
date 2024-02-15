@@ -59,7 +59,7 @@ const RegisterScreen = () => {
         <div className="col-md-5">
           {success && (<Success message="Rejestracja pomyślna"/>)}
           <div className="bs">
-            <h2>Registration</h2>
+            <h2>Rejestracja</h2>
             {/* Inputy do wprowadzenia danych username, email, hasła oraz potwierdzenia hasła */}
             <input
               type="text"
@@ -92,7 +92,7 @@ const RegisterScreen = () => {
 
             {/* Przycisk do wywołania funkcji rejestracji */}
             <button className="btn btn-primary mt-3" onClick={register}>
-              Register
+              Stwórz konto
             </button>
           </div>
         </div>

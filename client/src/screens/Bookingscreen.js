@@ -20,30 +20,50 @@ function Bookingscreen() {
     moment(fromDate, "DD-MM-YYYY"),
     "days"
   );
-  
 
-  // Poprawiona część kodu w Bookingscreen
-useEffect(() => {
-  const fetchRoomById = async () => {
+
+  useEffect(() => {
     try {
-      setLoading(true);
-      const data = (await axios.post("/api/rooms/getroombyid", { roomid })).data;
-      setRoom(data);
-      setTotalamount(await calculateTotalPrice(totalDays));
-      setLoading(false);
+      const currentUserString = localStorage.getItem('currentUser');
+  
+      if (!currentUserString) {
+        throw new Error('currentUser is null or undefined');
+      }
+  
+      const currentUser = JSON.parse(currentUserString);
+  
+      if (!currentUser || !currentUser.username) {
+        throw new Error('username is null or undefined');
+      }
+  
+      const fetchRoomById = async () => {
+        try {
+          setLoading(true);
+          const data = (await axios.post("/api/rooms/getroombyid", { roomid })).data;
+          setRoom(data);
+          setTotalamount(await calculateTotalPrice(totalDays));
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching room:", error);
+          setError(true);
+          setLoading(false);
+        }
+      };
+  
+      const calculateTotalPrice = async (totalDays) => {
+        return totalDays * room.rentperday;
+      };
+  
+      fetchRoomById();
     } catch (error) {
-      console.error("Error fetching room:", error);
-      setError(true);
-      setLoading(false);
+      Swal.fire('', 'Musisz być zalogowany, żeby zarezerwować pokój!', 'error');
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 1500);
+      
     }
-  };
+  }, [roomid, fromDate, toDate]);
 
-  const calculateTotalPrice = async (totalDays) => {
-    return totalDays * room.rentperday;
-  };
-
-  fetchRoomById();
-}, [roomid, fromDate, toDate]);
 
   const calculateTotalPrice = (totalDays) => {
     return totalDays * room.rentperday;
@@ -62,29 +82,30 @@ useEffect(() => {
       totalDays,  // Include totalDays in the bookingDetails
       token,
     };
-  
+
     //console.log("Booking details:", bookingDetails);  // Verify the booking details
-  
+
     try {
       setLoading(true);
       const result = await axios.post('/api/bookings/bookroom', bookingDetails);
       setLoading(false);
       Swal.fire('Success', 'Zarezerwowano pokój', 'success').then(result => {
-        window.location.href = '/bookings'
+        window.location.href = '/profile'
       })
-     // alert('Booking done successfully');
+      // alert('Booking done successfully');
     } catch (error) {
       setLoading(false);
       Swal.fire('Error', 'Nie udało się zarezerwować pokoju', 'error')
       console.error('Error during booking:', error.message, error.response);
     }
   }
-  
+
 
 
 
   return (
     <div>
+
       {/* Rest of the component to display room details */}
       {loading ? (
         <h1>
@@ -100,7 +121,7 @@ useEffect(() => {
             <h1>{room.name}</h1>
             <img src={room.imageurl[0]} className="bigimg" alt={room.name} />
           </div>
-  
+
           <div className="col-md-5">
             <h1>Szczegóły zamówienia</h1>
             <hr />
@@ -110,7 +131,7 @@ useEffect(() => {
               <p>Pobyt do: {toDate}</p>
               <p>Dla {room.maxcount} osób </p>
             </b>
-  
+
             <div>
               <b>
                 <h1>Cena</h1>
