@@ -13,18 +13,18 @@ const bookingSchema = mongoose.Schema({
     },
 
     // Identyfikator użytkownika
-    userid: {
+    username: {
         type: String,
         required: true
     },
     // Data początkowa rezerwacji
     fromDate: {
-        type: Date,
+        type: String,
         required: true
     },
     // Data końcowa rezerwacji
     toDate: {
-        type: Date,
+        type: String,
         required: true
     },
     // Całkowita kwota rezerwacji

@@ -10,7 +10,7 @@ const mongoose = require('mongoose');  // Add this line
 // Endpoint obsługujący rezerwację pokoju
 router.post("/bookroom", async (req, res) => {
   try {
-    const { room, userid, fromDate, toDate, totalamount, totalDays, token } = req.body;
+    const { room, username, fromDate, toDate, totalamount, totalDays, token } = req.body;
 
     if (!token || !token.email || !token.id) {
       return res.status(400).json({ message: "Invalid token data" });
@@ -39,9 +39,9 @@ router.post("/bookroom", async (req, res) => {
       const newBooking = new Booking({
         name: room.name,
         roomid: room._id,
-        userid,
-        fromDate: moment.utc(fromDate, "DD-MM-YYYY").toDate(),
-        toDate: moment.utc(toDate, "DD-MM-YYYY").toDate(),
+        username,
+        fromDate: moment.utc(fromDate, "DD-MM-YYYY").format("DD-MM-YYYY"),
+        toDate: moment.utc(toDate, "DD-MM-YYYY").format("DD-MM-YYYY"),
         totalDays,
         totalamount,
         transactionid: payment.id,
@@ -56,7 +56,7 @@ router.post("/bookroom", async (req, res) => {
         bookingid: booking._id,
         fromDate: moment.utc(fromDate, "DD-MM-YYYY").format("DD-MM-YYYY"),
         toDate: moment.utc(toDate, "DD-MM-YYYY").format("DD-MM-YYYY"),
-        userid: userid,
+        username,
         status: booking.status,
       });
 
@@ -76,10 +76,10 @@ router.post("/bookroom", async (req, res) => {
 
 
 router.post("/getbookingsbyuserid", async (req, res) => {
-  const userid = req.body.userid;
+  const username = req.body.username;
 
   try {
-    const bookings = await Booking.find({ userid: userid, status: { $ne: 'Canceled' } });
+    const bookings = await Booking.find({ username: username, status: { $ne: 'Anulowane' } }); // Change from userid to username
     res.send(bookings);
   } catch (error) {
     return res.status(400).json({ error });
@@ -117,6 +117,15 @@ router.post("/cancelbooking", async (req, res) => {
     res.status(500).json({ error: "An error occurred during cancellation." });
   }
 });
+
+router.get("/getallbookings", async(req, res) => {
+    try {
+        const bookings = await Booking.find()
+        res.send(bookings)
+    } catch (error) {
+      return res.status(400).json({error})
+    }
+})
 
 
 module.exports = router;

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 const { TabPane } = Tabs;
 
@@ -45,7 +46,7 @@ function MyBookings() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await axios.post('api/bookings/getbookingsbyuserid', { userid: user._id });
+        const data = await axios.post('api/bookings/getbookingsbyuserid', { username: user.username });
         setBookings(data.data);
         setLoading(false);
       } catch (error) {
@@ -56,7 +57,7 @@ function MyBookings() {
     };
 
     fetchData();
-  }, [user._id]);
+  }, [user.username]);
 
   async function cancelBooking(bookingid, roomid) {
     try {
@@ -65,10 +66,14 @@ function MyBookings() {
       setLoading(true);
       await axios.post("/api/bookings/cancelbooking", { bookingid, roomid });
       // Update state to reflect the canceled booking
-      setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingid));
+      setBookings((prevBookings) =>
+        prevBookings.map((booking) =>
+          booking._id === bookingid ? { ...booking, status: 'Anulowane' } : booking
+        )
+      );
       setLoading(false);
-      Swal.fire('', 'Rezerwacja została anulowana', 'success').then(result => {window.location.reload();});
-      
+      Swal.fire('', 'Rezerwacja została anulowana', 'success').then(result => { window.location.reload(); });
+
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -85,8 +90,8 @@ function MyBookings() {
             <div className='bs' key={booking._id}>
               <h1>{booking.name}</h1>
               <p><b>Id Rezerwacji: </b>{booking._id}</p>
-              <p><b>Data zakwaterowania: </b>{new Date(booking.fromDate).toLocaleDateString("en-GB")}</p>
-              <p><b>Data wykwaterowania: </b>{new Date(booking.toDate).toLocaleDateString("en-GB")}</p>
+              <p><b>Data zakwaterowania: </b>{moment(booking.fromDate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
+              <p><b>Data wykwaterowania: </b>{moment(booking.toDate, "DD-MM-YYYY").format("DD-MM-YYYY")}</p>
               <p><b>Koszt: </b>{booking.totalamount}</p>
               <p><b>Status: </b>
                 <span style={{ color: booking.status === 'booked' ? '#4CAF50' : '#FF0000' }}>

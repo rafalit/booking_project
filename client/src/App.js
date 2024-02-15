@@ -8,6 +8,7 @@ import Bookingscreen from './screens/Bookingscreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import Profilescreen from './screens/Profilescreen';
+import Adminscreen from './screens/Adminscreen';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/profile" element={<Profilescreen />} />
+          <Route path="/admin" element={<Adminscreen />}/>
         </Routes> 
 
       </Router>

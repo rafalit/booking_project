@@ -68,37 +68,37 @@ function Bookingscreen() {
   const calculateTotalPrice = (totalDays) => {
     return totalDays * room.rentperday;
   };
+
   async function onToken(token) {
-    //console.log(token);
+  try {
+    setLoading(true);
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     const bookingDetails = {
       room: {
         name: room.name,
         _id: room._id,
       },
-      userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+      username: currentUser.username,
       fromDate,
       toDate,
       totalamount: calculateTotalPrice(totalDays),
-      totalDays,  // Include totalDays in the bookingDetails
+      totalDays,
       token,
     };
 
-    //console.log("Booking details:", bookingDetails);  // Verify the booking details
+    const result = await axios.post('/api/bookings/bookroom', bookingDetails);
+    setLoading(false);
 
-    try {
-      setLoading(true);
-      const result = await axios.post('/api/bookings/bookroom', bookingDetails);
-      setLoading(false);
-      Swal.fire('Success', 'Zarezerwowano pokój', 'success').then(result => {
-        window.location.href = '/profile'
-      })
-      // alert('Booking done successfully');
-    } catch (error) {
-      setLoading(false);
-      Swal.fire('Error', 'Nie udało się zarezerwować pokoju', 'error')
-      console.error('Error during booking:', error.message, error.response);
-    }
+    Swal.fire('Success', 'Zarezerwowano pokój', 'success').then(result => {
+      window.location.href = '/profile';
+    });
+  } catch (error) {
+    setLoading(false);
+    Swal.fire('Error', 'Nie udało się zarezerwować pokoju', 'error');
+    console.error('Error during booking:', error.message, error.response);
   }
+}
 
 
 
