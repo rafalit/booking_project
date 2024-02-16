@@ -43,7 +43,7 @@ function Adminscreen() {
     }
 
 
-    
+
     return (
         <div className='mt-3 ml-3 mr-3 bs'>
             <h1 style={{ fontSize: '25px' }}><b>Admin panel</b></h1>
@@ -55,7 +55,7 @@ function Adminscreen() {
                     <Rooms />
                 </TabPane>
                 <TabPane tab="Dodaj pokój" key="3">
-                    <h1 style={{ fontSize: '18px' }}>Dodaj pokój</h1>
+                    <Addroom/>
                 </TabPane>
                 <TabPane tab="Użytkownicy" key="4">
                     <Users />
@@ -254,3 +254,73 @@ export function Users() {
     )
 
 }
+
+
+export function Addroom() {
+
+    const [name, setname] = useState('');
+    const [rentperday, setrentperday] = useState('');
+    const [maxcount, setmaxcount] = useState('');
+    const [description, setdescription] = useState('');
+    const [phoneNumber, setphonenumber] = useState('');
+    const [type, settype] = useState('');
+    const [imageurl1, setimageurl1] = useState('');
+    const [imageurl2, setimageurl2] = useState('');
+    const [imageurl3, setimageurl3] = useState('');
+
+
+    function Addroom(){
+
+        const newroom={
+            name,
+            rentperday,
+            maxcount,
+            description,
+            phoneNumber,
+            type,
+            imageurl: [imageurl1, imageurl2, imageurl3]
+        }
+        console.log(newroom)
+    }
+
+    return (
+        <div className='row'>
+            <div className='col-md-5'>
+                <input type="text" className='form-control' placeholder='nazwa hotelu'
+                 value={name} onChange={(e)=>{setname(e.target.value)}} />
+                    
+                <input type="text" className='form-control' placeholder='opłata za noc'
+                 value={rentperday} onChange={(e)=>{setrentperday(e.target.value)}} />
+
+                <input type="text" className='form-control' placeholder='ilość gości'
+                 value={maxcount} onChange={(e)=>{setmaxcount(e.target.value)}} />
+
+                <input type="text" className='form-control' placeholder='opis' 
+                 value={description} onChange={(e)=>{setdescription(e.target.value)}}/>
+
+                <input type="text" className='form-control' placeholder='numer telefonu'
+                 value={phoneNumber} onChange={(e)=>{setphonenumber(e.target.value)}} />
+            </div>
+
+            <div className='col-md-5'>
+                <input type="text" className='form-control' placeholder='typ' 
+                 value={type} onChange={(e)=>{settype(e.target.value)}}/>
+
+                <input type="text" className='form-control' placeholder='zdjęcie URL_1'
+                 value={imageurl1} onChange={(e)=>{setimageurl1(e.target.value)}} />
+
+                <input type="text" className='form-control' placeholder='zdjęcie URL_2'
+                 value={imageurl2} onChange={(e)=>{setimageurl2(e.target.value)}} />
+
+                <input type="text" className='form-control' placeholder='zdjęcie URL_3'
+                 value={imageurl3} onChange={(e)=>{setimageurl3(e.target.value)}} />
+
+                <div className='text-right'>
+                    <button className='btn btn-primary mt-2' onClick={Addroom}>Dodaj pokój</button>
+                </div>
+            </div>
+
+        </div>
+    )
+}
+
