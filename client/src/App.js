@@ -9,6 +9,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import Profilescreen from './screens/Profilescreen';
 import Adminscreen from './screens/Adminscreen';
+import Loadingscreen from './screens/Loadingscreen';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/profile" element={<Profilescreen />} />
           <Route path="/admin" element={<Adminscreen />}/>
+          <Route path="/" element={<Loadingscreen />}/>
         </Routes> 
 
       </Router>
