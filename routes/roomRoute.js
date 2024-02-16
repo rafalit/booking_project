@@ -35,8 +35,7 @@ router.post('/getroombyid', async (req, res) => {
   }
 });
 
-// Eksportuje router do użycia w innych częściach aplikacji
-module.exports = router;
+
 
 // Funkcja obsługująca błędy, używana w przypadku wystąpienia błędu w endpointach
 function handleErrorResponse(res, error) {
@@ -45,3 +44,20 @@ function handleErrorResponse(res, error) {
   // Wysłanie odpowiedzi z błędem do klienta
   res.status(500).json({ message: "Internal Server Error" });
 }
+
+
+router.post("/addrooms", async(req, res)=>{
+
+  try {
+    const newroom = new Room(req.body)
+    await newroom.save()
+
+    res.send("Nowy pokój został dodany!")
+  } catch (error) {
+    return res.status(400).json({error})
+  }
+
+})
+
+// Eksportuje router do użycia w innych częściach aplikacji
+module.exports = router;

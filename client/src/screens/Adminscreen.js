@@ -55,7 +55,7 @@ function Adminscreen() {
                     <Rooms />
                 </TabPane>
                 <TabPane tab="Dodaj pokój" key="3">
-                    <Addroom/>
+                    <Addroom />
                 </TabPane>
                 <TabPane tab="Użytkownicy" key="4">
                     <Users />
@@ -257,63 +257,86 @@ export function Users() {
 
 
 export function Addroom() {
+    const [loading, setloading] = useState(false);
+    const [error, seterror] = useState();
+
 
     const [name, setname] = useState('');
     const [rentperday, setrentperday] = useState('');
     const [maxcount, setmaxcount] = useState('');
     const [description, setdescription] = useState('');
     const [phoneNumber, setphonenumber] = useState('');
-    const [type, settype] = useState('');
+    const [voivodeship, setvoivodeship] = useState('');
+    const [city, setcity] = useState('');
     const [imageurl1, setimageurl1] = useState('');
     const [imageurl2, setimageurl2] = useState('');
     const [imageurl3, setimageurl3] = useState('');
 
 
-    function Addroom(){
+    async function Addroom() {
 
-        const newroom={
+        const newroom = {
             name,
             rentperday,
             maxcount,
             description,
             phoneNumber,
-            type,
-            imageurl: [imageurl1, imageurl2, imageurl3]
+            imageurl: [imageurl1, imageurl2, imageurl3],
+            voivodeship,
+            city,
         }
-        console.log(newroom)
+
+        try {
+            setloading(true);
+            const result = await (await axios.post("/api/rooms/addrooms", newroom)).data
+            console.log(result)
+            setloading(false);
+            Swal.fire('', 'Pokój został dodany!', 'success').then(result => {
+                window.location.href = '/admin'
+            })
+        } catch (error) {
+            console.log(error)
+            setloading(false);
+            Swal.fire('', 'Sprawdź czy podałeś poprawnie dane!', 'error')
+        }
     }
 
     return (
         <div className='row'>
+
             <div className='col-md-5'>
+                {loading && <Loader />}
                 <input type="text" className='form-control' placeholder='nazwa hotelu'
-                 value={name} onChange={(e)=>{setname(e.target.value)}} />
-                    
+                    value={name} onChange={(e) => { setname(e.target.value) }} />
+
                 <input type="text" className='form-control' placeholder='opłata za noc'
-                 value={rentperday} onChange={(e)=>{setrentperday(e.target.value)}} />
+                    value={rentperday} onChange={(e) => { setrentperday(e.target.value) }} />
 
                 <input type="text" className='form-control' placeholder='ilość gości'
-                 value={maxcount} onChange={(e)=>{setmaxcount(e.target.value)}} />
+                    value={maxcount} onChange={(e) => { setmaxcount(e.target.value) }} />
 
-                <input type="text" className='form-control' placeholder='opis' 
-                 value={description} onChange={(e)=>{setdescription(e.target.value)}}/>
+                <input type="text" className='form-control' placeholder='opis'
+                    value={description} onChange={(e) => { setdescription(e.target.value) }} />
 
                 <input type="text" className='form-control' placeholder='numer telefonu'
-                 value={phoneNumber} onChange={(e)=>{setphonenumber(e.target.value)}} />
+                    value={phoneNumber} onChange={(e) => { setphonenumber(e.target.value) }} />
             </div>
 
             <div className='col-md-5'>
-                <input type="text" className='form-control' placeholder='typ' 
-                 value={type} onChange={(e)=>{settype(e.target.value)}}/>
+                <input type="text" className='form-control' placeholder='województwo'
+                    value={voivodeship} onChange={(e) => { setvoivodeship(e.target.value) }} />
+
+                <input type="text" className='form-control' placeholder='miasto'
+                    value={city} onChange={(e) => { setcity(e.target.value) }} />
 
                 <input type="text" className='form-control' placeholder='zdjęcie URL_1'
-                 value={imageurl1} onChange={(e)=>{setimageurl1(e.target.value)}} />
+                    value={imageurl1} onChange={(e) => { setimageurl1(e.target.value) }} />
 
                 <input type="text" className='form-control' placeholder='zdjęcie URL_2'
-                 value={imageurl2} onChange={(e)=>{setimageurl2(e.target.value)}} />
+                    value={imageurl2} onChange={(e) => { setimageurl2(e.target.value) }} />
 
                 <input type="text" className='form-control' placeholder='zdjęcie URL_3'
-                 value={imageurl3} onChange={(e)=>{setimageurl3(e.target.value)}} />
+                    value={imageurl3} onChange={(e) => { setimageurl3(e.target.value) }} />
 
                 <div className='text-right'>
                     <button className='btn btn-primary mt-2' onClick={Addroom}>Dodaj pokój</button>

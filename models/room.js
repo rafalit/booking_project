@@ -37,7 +37,7 @@ const roomSchema = mongoose.Schema({
     // Rodzaj pokoju
     type: {
         type: String,
-        required: true
+        required: false
     },
     // Opis pokoju
     description: {
