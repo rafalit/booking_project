@@ -1,9 +1,10 @@
 // Room.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Modal, Button, Carousel } from 'react-bootstrap'
 
 function Room({ room, fromDate, toDate }) {
-    
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -52,6 +53,32 @@ function Room({ room, fromDate, toDate }) {
                     <button className='btn btn-primary' onClick={handleShow}>View Details</button>
                 </div>
             </div>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header>
+                    <Modal.Title style={{ fontSize: '2.5em', textAlign: 'center', margin: 'auto' }}>
+                        {room.name}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Carousel prevLabel='' nextLabel=''>
+                        {room.imageurl.map(url => {
+                            return <Carousel.Item>
+                                <img
+                                    className="d-block w-100 bigimg"
+                                    src={url}
+                                />
+                            </Carousel.Item>
+                        })}
+                    </Carousel>
+                    <pr>{room.description}</pr>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
