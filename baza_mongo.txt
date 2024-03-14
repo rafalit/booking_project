@@ -1,0 +1,272 @@
+[
+    {
+      "name": "Pokój Biznesowy",
+      "maxcount": 1,
+      "phoneNumber": "666-555-444",
+      "rentperday": 200,
+      "imageurl": ["https://cf.bstatic.com/xdata/images/hotel/max1280x900/332498737.jpg?k=816ba5cad0ee15e53f8e2847d70180675da0e76e1cd946b47ee785b8dcb73463&o=&hp=1", "https://cf.bstatic.com/xdata/images/hotel/max1280x900/332499039.jpg?k=b723f38494d10b6e4e1fbce8985d39bf66e906ab0751ca758bc2c29fdbb33306&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/332499055.jpg?k=1ed9ce3d47b0f1c4e81a7b24703cf72e1cbbadfbcb340be128508a39150a01ed&o=&hp=1"],
+      "currentbookings": [],
+      "type": "Biznesowy",
+      "description": "Zakwaterowanie idealne dla podróżujących służbowo.",
+      "city": "Kraków",
+      "voivodeship":"Małopolskie"
+    },
+    {
+    "name": "Pokój Standardowy",
+    "maxcount": 2,
+    "phoneNumber": "123-456-789",
+    "rentperday": 100,
+    "imageurl": [
+      "https://cdn.wyjatkowyprezent.pl/storage/photos/products/115806/70031.jpg?w=2000&h=2000",
+      "https://cf.bstatic.com/xdata/images/hotel/max200/400913084.jpg?k=637697c6b65e6b8ea4949f8d4b11c283ed750aec5dff8ad3b4921cb87d2123ae&o=&hp=1"
+    ],
+    "currentbookings": [],
+    "type": "Standard",
+    "description": "Przytulny pokój z podstawowym wyposażeniem.",
+    "city": "Warszawa",
+    "voivodeship": "Mazowieckie"
+    },
+    {
+    "name": "Apartament Artystyczny",
+    "maxcount": 3,
+    "phoneNumber": "333-222-111",
+    "rentperday": 300,
+    "imageurl": ["https://cf.bstatic.com/xdata/images/hotel/max1280x900/332498110.jpg?k=e2f2f9b08e8d14216147a9d19afbd3c1eef53dcedf5c1491d1c26f13e747952f&o=&hp=1",
+"https://cf.bstatic.com/xdata/images/hotel/max1280x900/332498622.jpg?k=15ecf0585b37f83ee6d857747fa05b743a1834b4b9efb4ec4aa75990153cc00d&o=&hp=1"],
+     "currentbookings": [],
+     "type":"Apartament typu Junior Suite z tarasem",
+     "description": "Unikalny apartament dla miłośników sztuki.",
+     "city": "Poznań",
+     "voivodeship": "Wielkopolskie"
+    },
+    {
+    "name": "Apartament Rodzinny",
+    "maxcount": 4,
+    "phoneNumber": "987-654-321",
+    "rentperday": 200,
+    "imageurl": [
+      "https://e-turysta.pl/zdjecia/galeria-glowna/max/93/Traffic-Hotel-Poznan-937398.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMXOP6G_lGJT21MmYQbpbk1seVzPnkd2cfsDuYTu2agZynBe_cDJbaXssmmRxJCkJ7thw&usqp=CAU"
+    ],
+    "currentbookings": [],
+    "type": "Apartament",
+    "description": "Duży apartament idealny dla rodzin.",
+    "city": "Poznań",
+    "voivodeship": "Wielkopolskie"
+    },
+    {
+    "name": "Luksusowy Pokój",
+    "maxcount": 2,
+    "phoneNumber": "555-123-456",
+    "rentperday": 300,
+    "imageurl": [
+      "https://hotelbeskid.pl/wp-content/uploads/2019/03/MG_5881_2-osobowy_superior_min.jpg",
+      "https://hotelbeskid.pl/wp-content/uploads/2019/03/MG_5871_rodzinny_21_superior_min.jpg"
+    ],
+    "currentbookings": [],
+    "type": "Luksus",
+    "description": "Ekskluzywny pokój z najwyższym standardem.",
+    "city": "Kraków",
+    "voivodeship": "Małopolskie"
+  },
+  {
+    "name": "Pokój Deluxe",
+    "maxcount": 3,
+    "phoneNumber": "111-222-333",
+    "rentperday": 150,
+    "imageurl": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5HmstmmIlT56zgN7F9MNifGGZ4iZ-oYwQ&usqp=CAU",
+      "https://e-nocleg.pl/foto/noclegi/jelenia-gora/272433817-253612-900x600-w.jpg"
+    ],
+    "currentbookings": [],
+    "type": "Deluxe",
+    "description": "Przestronny pokój z dodatkowym wygodnym wyposażeniem.",
+    "city": "Jelenia Góra",
+    "voivodeship": "Dolnośląskie"
+  },
+  {
+    "name": "Pokój Panoramiczny",
+    "maxcount": 2,
+    "phoneNumber": "777-666-555",
+    "rentperday": 250,
+    "imageurl": [
+      "https://willapodszymoszkowa.pl/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-06-at-18.07.40.jpeg",
+      "https://willapodszymoszkowa.pl/wp-content/uploads/2023/04/WhatsApp-Image-2023-04-11-at-18.42.10-1.jpeg",
+"https://willapodszymoszkowa.pl/wp-content/uploads/2023/05/WhatsApp-Image-2023-05-06-at-18.07.40-1.jpeg"
+    ],
+    "currentbookings": [],
+    "type": "Panoramiczny",
+    "description": "Pokój z panoramicznym widokiem na miasto.",
+    "city": "Białystok",
+    "voivodeship": "Podlaskie"
+  },
+  {
+    "name": "Apartament Deluxe",
+    "maxcount": 4,
+    "phoneNumber": "444-333-222",
+    "rentperday": 500,
+    "imageurl": [
+      "https://cf.bstatic.com/xdata/images/hotel/max1280x900/332499197.jpg?k=8fa8f27ce9a3bc127c67ed280e121a7014bb6e30a4a6d01752a3d46e687aed0e&o=&hp=1",
+      "https://cf.bstatic.com/xdata/images/hotel/max1280x900/332499234.jpg?k=6689049a669bce4fde2ee3be978f8833621fd54c6bdaf5f13c5eae352f93ea69&o=&hp=1",
+	"https://cf.bstatic.com/xdata/images/hotel/max1280x900/332499229.jpg?k=c2357620344b691d57bf7a63231ead84efd833332a5ef38da33e4863ab41b972&o=&hp=1"
+    ],
+    "currentbookings": [],
+    "type": "Deluxe",
+    "description": "Najwyższy standard w luksusowym apartamencie.",
+    "city": "Kielce",
+    "voivodeship": "Świętokrzyskie"
+  },
+  {
+    "name": "Warszauer Hotel",
+    "maxcount": 2,
+    "phoneNumber": "888-999-000",
+    "rentperday": 180,
+    "imageurl": [
+      "https://cf.bstatic.com/xdata/images/hotel/max1280x900/332494377.jpg?k=fae9ab9779dce57ac3e272f8842dd354954dca259cd0312da087878a877f53ec&o=&hp=1",
+      "https://cf.bstatic.com/xdata/images/hotel/max1280x900/332494512.jpg?k=58631b8f3205e676490b24a2c669ba6ab4362bd375c311a4d3939b0ee437f3b8&o=&hp=1",
+	"https://cf.bstatic.com/xdata/images/hotel/max1280x900/332494894.jpg?k=6bef5f756aa098a16d704a79bc6599543d2701cf6bca965478bece5916c67434&o=&hp=1"
+    ],
+    "currentbookings": [],
+    "type": "Dwuosobowy typu Deluxe",
+    "description": "Pokój z dostępem do strefy wellness.",
+    "city": "Gdańsk",
+    "voivodeship": "Pomorskie"
+  },
+  {
+    "name": "Apartament Rodzinny",
+    "maxcount": 4,
+    "phoneNumber": "987-654-321",
+    "rentperday": 200,
+    "imageurl": [
+      "https://e-turysta.pl/zdjecia/galeria-glowna/max/93/Traffic-Hotel-Poznan-937398.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMXOP6G_lGJT21MmYQbpbk1seVzPnkd2cfsDuYTu2agZynBe_cDJbaXssmmRxJCkJ7thw&usqp=CAU"
+    ],
+    "currentbookings": [],
+    "type": "Apartament",
+    "description": "Duży apartament idealny dla rodzin.",
+    "city": "Poznań",
+    "voivodeship": "Wielkopolska"
+  },
+  {
+    "name": "Apartament Ślubny",
+    "maxcount": 2,
+    "phoneNumber": "999-888-777",
+    "rentperday": 400,
+    "imageurl": [
+      "https://czteryporyroku.pl/sites/default/files/akapit/2022-08-10/wyposazenie-apartamentu-widokowego.jpg",
+      "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/1f/29/24963177_718112855_apartament-swistakzakopanekominekwidoksniadaniasuper-cenabon_small_256x175.jpg"
+    ],
+    "currentbookings": [],
+    "type": "Apartament",
+    "description": "Elegancki apartament idealny na noc po ślubie.",
+    "city": "Zakopane",
+    "voivodeship": "Małopolskie"
+   },
+   {
+    "name": "Kurort Zielona Dolina",
+    "maxcount": 3,
+    "phoneNumber": "134-156-178",
+    "rentperday": 240,
+    "imageurl": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/267849792.jpg?k=859fb02d3c533e62d36592a7588f2db1af0f92a9b830e9f5a2f06b8ec08de8ef&o=&hp=1",
+"https://wynajem-pokoi-kolobrzeg.booked.com.pl/data/Photos/OriginalPhoto/11271/1127197/1127197785/Wynajem-Pokoi-Hotel-Kolobrzeg-Exterior.JPEG",
+"https://wynajem-pokoi-kolobrzeg.booked.com.pl/data/Photos/OriginalPhoto/11388/1138874/1138874119/Wynajem-Pokoi-Hotel-Kolobrzeg-Exterior.JPEG"     
+    ],
+    "currentbookings": [],
+    "type": "Kurort",
+    "description": "Urokliwy kurort w spokojnej wsi, doskonały na relaksujący weekend.",
+    "city": "Mikołajki",
+    "voivodeship": "Warmińsko-Mazurskie"
+   },
+   {
+    "name": "Gospoda Pod Lipą",
+    "maxcount": 4,
+    "phoneNumber": "135-153-172",
+    "rentperday": 140,
+    "imageurl": ["https://lh3.googleusercontent.com/proxy/8oXDh06Z3WtVLe_9leDG5EdidmIEnZe2wBkn-nLPIA7dNTHpG0ucOXk7DSbLwdP6gN8dIRxZlRqaHYiJxzXZQAf4znM9RJnN7_ENjUAy5BBpbIUxYHag-zbiy_YAIKiN5KJbmXfHTzqpWBpvbg",
+"https://cf.bstatic.com/xdata/images/hotel/max1024x768/247030545.jpg?k=d9ca24526083ae3e54876ea90efb6cb4ee5e36fa151b078db5102a3db1655eaf&o=&hp=1",
+"https://lh3.googleusercontent.com/proxy/KnpFxXB90KkQODziIDoywVQWE1Lz_hkYnSgKXIpkHHjv8qOuzNb_J3fwmLT6aLIRQ0aFjQcK_J0x-PcSrTosfOSvmnE-UlWTDWFZOuiya2zzkaqygCDTQ2cx7M9qofbiGggCRogQpQM"
+    ],
+    "currentbookings": [],
+    "type": "Gospoda",
+    "description": "Nowoczesna gospoda blisko morza, idealna na wakacyjny pobyt.",
+    "city": "Rewal",
+    "voivodeship": "Zachodnio-Pomorskie"
+   },  
+   {
+    "name": "Zajazd Pod Srebrnym Koniem",
+    "maxcount": 7,
+    "phoneNumber": "245-190-172",
+    "rentperday": 310,
+    "imageurl": ["https://zajazdwiejski.pl/wp-content/uploads/2017/01/pokoj-3-osobowy-2.jpg",
+"https://zajazdwiejski.pl/wp-content/uploads/2018/05/Zajazd-Wiejski-86-1024x682.jpg",
+"https://mediaprzasnysz.pl/wp-content/uploads/2019/01/zdj%C4%99cie-1.jpg"
+    ],
+    "currentbookings": [],
+    "type": "Zajazd",
+    "description": "Przestronny zajazd z pięknym widokiem na góry.",
+    "city": "Opole",
+    "voivodeship": "Opolskie"
+    },
+    {
+    "name": "Hotel Pod Gwiazdami",
+    "maxcount": 4,
+    "phoneNumber": "211-190-152",
+    "rentperday": 200,
+    "imageurl": ["https://u.profitroom.pl/2018-hotelalmond-pl/thumb/1920x1080/uploads/Pokoje_apartament/Apartament002.jpg",
+"https://hotel.com.pl/cms/hpr/images/pokoje/deluxesuites/galeria/images/image_3.jpg?97",
+"https://u.profitroom.pl/2017.hotelsopot.eu/thumb/1200x630/uploads/Pokoje/Hotel_Sopot_105.jpg"
+    ],
+    "currentbookings": [],
+    "type": "Hotel",
+    "description": "Urokliwy hotel otoczony bujnym ogrodem, idealny na romantyczny wypad.",
+    "city": "Zgorzelec",
+    "voivodeship": "Dolnośląskie"
+    },
+    {
+    "name": "Hostel Młodzieżowy Twój Świat",
+    "maxcount": 9,
+    "phoneNumber": "222-190-172",
+    "rentperday": 100,
+    "imageurl": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/331379679.jpg?k=8b9abb4c2602c054bc358fc02ecd976ac9c424a0c5a0657a35a76deebd70505f&o=&hp=1",
+"https://i.szalas.hu/hotels/1018334/500x500/31667564.jpg",
+"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT1BYwjK4labKkAdqOP9IKZvowoKfKvpRHMg&usqp=CAU"     
+    ],
+    "currentbookings": [],
+    "type": "Hostel",
+    "description": "Przyjazny budżetowy hostel, idealny dla podróżującej młodzieży, oferujący wspólne pokoje.",
+    "city": "Łódź",
+    "voivodeship": "Łódzkie"
+    },
+    {
+    "name": "Zajazd Pod Kasztanem",
+    "maxcount": 9,
+    "phoneNumber": "222-190-172",
+    "rentperday": 200,
+    "imageurl": ["https://kociewie24.eu/wp-content/uploads/2021/12/211212-PTCZ-GGNI-21323-Zajazd-Gniewko-Mala-Karczma-5-1200x801.jpeg",
+"https://lh3.googleusercontent.com/proxy/pXWSuQ6KXKglPYsvGB2nPu464jM4ammb5rV50LJ97gktIe-H0ISGNKE7Z2qTjw0KpgKFcuQSTQorHE3TWS9IU6rDDQDT5UJuFGs",
+"https://lh3.googleusercontent.com/proxy/Z3pNzbAT30uwEczy5LDTQHnx2EZRPu3rV25xOX-Ozrka3YHarN8kKtwjCTdSxZoCntenRpGoKy1Ng6pbzLnpRA8gRba3mSBSQm3fbfyf2D0ZFX0hRd5FsQGlt7FVgQsQB6tYhetZldjqYn56f6KXxrxJhE-yHw=w624-h720-n-k"
+    ],
+    "currentbookings": [],
+    "type": "Zajazd",
+    "description": "Urokliwy zajazd z tradycyjnym wystrojem, otoczony przyrodą, doskonały na rodzinny wypad.",
+    "city": "Gorzów Wielkopolski",
+    "voivodeship": "Lubuskie"
+    },
+    {
+    "name": "Apartamenty Kamienne Zaułki",
+    "maxcount": 4,
+    "phoneNumber": "252-152-172",
+    "rentperday": 300,
+    "imageurl": ["https://apartament-jacuzzi.pl/wp-content/uploads/2018/07/wadowity-4a-slider-1.jpg",
+"https://u.profitroom.pl/2019-hoteldivaspa-pl/thumb/0x1000/uploads/Stocki/D-_Interactive-Design-Dropbox_Team-Design_Designers_Monika_Diva_Assets_Zdjcia_4N2A0536_kadr2.jpg",
+"https://skalnyspa.pl/wp-content/uploads/2020/12/apartament-z-kominkiem-3-3-2.jpg"
+    ],
+    "currentbookings": [],
+    "type": "Apartament",
+    "description": "Eleganckie apartamenty położone w kamienicznych zaułkach, zapewniające kameralną atmosferę.",
+    "city": "Toruń",
+    "voivodeship": "Kujawsko-Pomorskie"
+   }
+]
+
