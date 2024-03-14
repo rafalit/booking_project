@@ -58,6 +58,9 @@ This will navigate to the client directory, install dependencies, and automatica
 ## Design 
 We designed the application to be an intuitive and simple, yet powerful way to navigate, analyse and create bookings. This ultimately enables the efficient use of resources.
 ### Screenshots
+[![1](screenshots/z1.png)](screenshots/z1.png)
+
+More screenshots are available in the --> [screenshots](screenshots).
 
 ## Development
 If you plan to contribute to the development of BookingSystem or customize it to suit your needs, follow the guidelines below.
